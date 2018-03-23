@@ -3,11 +3,19 @@
 namespace App\Repositories;
 
 use App\Ip;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class IpRepository
+ * @package App\Repositories
+ */
 class IpRepository
 {
 
+	/**
+	 * @var Ip
+	 */
 	private $ip;
 
 	/**
@@ -19,6 +27,9 @@ class IpRepository
 		$this->ip = $ip;
 	}
 
+	/**
+	 * @param array $data
+	 */
 	public function addNewIp(array $data)
 	{
 		DB::beginTransaction();
@@ -45,6 +56,9 @@ class IpRepository
 		DB::commit();
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function getASNNum()
 	{
 		return $this->ip
@@ -53,6 +67,52 @@ class IpRepository
 			->where('date', '>=', '20160000')
 			->where('date', '<=', '20161231')
 			->groupBy('cc')
+			->get();
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIpsGroupByCC()
+	{
+		return $this->ip
+			->select('cc', DB::raw('count(*) as total'))
+			->groupBy('cc')
+			->get();
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIpsGroupByType()
+	{
+		return $this->ip
+			->select('type', DB::raw('count(*) as total'))
+			->groupBy('type')
+			->get();
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIpsGroupByCCType()
+	{
+		return $this->ip
+			->select('cc', 'type', DB::raw('count(*) as total'))
+			->groupBy('cc')
+			->groupBy('type')
+			->get();
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIpsGroupByYear()
+	{
+		return $this->ip
+			->select(DB::raw('year(date)'), 'type', DB::raw('count(*) as total'))
+			->groupBy(DB::raw('year(date)'))
+			->groupBy('type')
 			->get();
 	}
 }

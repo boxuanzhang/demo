@@ -7,7 +7,13 @@
 
 require('./bootstrap');
 
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VCharts from 'v-charts'
+
 window.Vue = require('vue');
+window.axios = require('axios');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,7 +21,9 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('charts', require('./components/Charts.vue'));
+Vue.use(BootstrapVue);
+Vue.use(VCharts)
 
 const app = new Vue({
     el: '#app'

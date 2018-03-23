@@ -18,5 +18,11 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "bootstrap-vue": "^2.0.0-rc.2",
+        "echarts": "^4.0.4",
+        "hchs-vue-charts": "^1.2.8",
+        "v-charts": "^1.16.7"
     }
 }

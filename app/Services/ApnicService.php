@@ -2,12 +2,18 @@
 
 namespace App\Services;
 
-use App\Ip;
 use App\Repositories\IpRepository;
 
+/**
+ * Class ApnicService
+ * @package App\Services
+ */
 class ApnicService
 {
 
+	/**
+	 * @var IpRepository
+	 */
 	protected $ipRepository;
 
 	/**
@@ -19,6 +25,9 @@ class ApnicService
 		$this->ipRepository = $ipRepository;
 	}
 
+	/**
+	 *
+	 */
 	public function importData()
 	{
 		$file = explode("\n", $this->getData());
@@ -28,7 +37,6 @@ class ApnicService
 				if (substr($line, 0, 1) === "#") {
 					continue;
 				}
-
 				if (substr($line, 0, 1) === "2") {
 					continue;
 				}
@@ -47,6 +55,9 @@ class ApnicService
 		}
 	}
 
+	/**
+	 * @return bool|string
+	 */
 	public function getData()
 	{
 		try {
@@ -62,10 +73,5 @@ class ApnicService
 		} catch (\Exception $e) {
 			return 'Can not get correct content';
 		}
-	}
-
-	public function test()
-	{
-		$this->ipRepository->getASNNum();
 	}
 }

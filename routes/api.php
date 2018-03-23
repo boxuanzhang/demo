@@ -19,4 +19,8 @@ Route::middleware('auth:api')->get('/user', function(Request $request) {
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function() {
 	Route::get('/ips/asn/2016', 'IpController@getASNIps');
+	Route::get('/ips/cc', 'IpController@getIpsGroupByCC');
+	Route::get('/ips/type', 'IpController@getIpsGroupByType');
+	Route::get('/ips/cc_type', 'IpController@getIpsGroupByCCAndType');
+	Route::get('/ips/year', 'IpController@getIpsGroupByYear');
 });
